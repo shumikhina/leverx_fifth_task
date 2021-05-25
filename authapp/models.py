@@ -4,10 +4,14 @@ from django.db import models
 
 class User(AbstractUser):
 
+    STUDENT = 1
+    PROFESSOR = 2
+    ADMIN = 3
+
     ROLES = (
-        (1, 'student'),
-        (2, 'professor'),
-        (3, 'admin'),
+        (STUDENT, 'student'),
+        (PROFESSOR, 'professor'),
+        (ADMIN, 'admin'),
     )
 
     role = models.PositiveSmallIntegerField(choices=ROLES)

@@ -17,4 +17,5 @@ from django.urls import path, include
 
 urlpatterns = [
     path('auth/', include(('authapp.urls', 'authapp'), namespace='authapp')),
+    path('courses/', include(('courses.urls', 'courses'), namespace='courses')),
 ]
