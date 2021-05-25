@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
 
     'authapp',
+    'courses',
+    'lections',
+    'homeworks',
 ]
 
 AUTH_USER_MODEL = 'authapp.User'
