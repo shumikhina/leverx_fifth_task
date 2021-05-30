@@ -33,10 +33,22 @@ class HomeworkSerializer(serializers.ModelSerializer):
 
 class ReadyHomeworkSerializer(serializers.ModelSerializer):
     homework = HomeworkSerializer(read_only=True)
+    homework_id = serializers.IntegerField(write_only=True)
+    student = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
     class Meta:
         model = ReadyHomework
-        fields = ['pk', 'homework', 'student', 'text', 'mark', 'comment']
+        fields = ['pk', 'homework', 'student', 'text', 'mark', 'comment', 'homework_id', 'student_comment']
+        read_only_fields = ['mark', 'comment', 'student_comment']
+
+    def validate(self, attrs):
+        homework = Homework.objects.filter(
+            Q(id=attrs['homework_id']) & Q(lecture__course__students=self.context['request'].user)
+        )
+        if not homework.exists():
+            raise ValidationError('Can only use available homeworks.')
+        attrs['homework'] = homework.first()
+        return attrs
 
 
 class ReadyHomeworkProfessorUpdateSerializer(serializers.ModelSerializer):
@@ -44,5 +56,14 @@ class ReadyHomeworkProfessorUpdateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ReadyHomework
-        fields = ['pk', 'homework', 'student', 'text', 'mark', 'comment']
-        read_only_fields = ['pk', 'homework', 'student', 'text']
+        fields = ['pk', 'homework', 'student', 'text', 'mark', 'comment', 'student_comment']
+        read_only_fields = ['pk', 'homework', 'student', 'text', 'student_comment']
+
+
+class ReadyHomeworkStudentCommentUpdateSerializer(serializers.ModelSerializer):
+    homework = HomeworkSerializer(read_only=True)
+
+    class Meta:
+        model = ReadyHomework
+        fields = ['pk', 'homework', 'student', 'text', 'mark', 'comment', 'student_comment']
+        read_only_fields = ['pk', 'homework', 'student', 'text', 'mark', 'comment']

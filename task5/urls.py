@@ -20,6 +20,4 @@ urlpatterns = [
     path('courses/', include(('courses.urls', 'courses'), namespace='courses')),
     path('lections/', include(('lections.urls', 'lections'), namespace='lections')),
     path('homeworks/', include(('homeworks.urls', 'homeworks'), namespace='homeworks')),
-    path('ready_homeworks/', include(('homeworks.urls', 'homeworks'), namespace='ready_homeworks')),
-
 ]

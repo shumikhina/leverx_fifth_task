@@ -17,3 +17,4 @@ class ReadyHomework(models.Model):
     text = models.TextField()
     mark = models.IntegerField(null=True)
     comment = models.CharField(max_length=512, null=True)
+    student_comment = models.CharField(max_length=512, null=True)
