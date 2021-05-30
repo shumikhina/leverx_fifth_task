@@ -2,7 +2,7 @@ from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 from django.db.models import Q
 
-from homeworks.models import Homework
+from homeworks.models import Homework, ReadyHomework
 from lections.models import Lecture
 from lections.serializers import LecturesSerializer
 
@@ -29,3 +29,11 @@ class HomeworkSerializer(serializers.ModelSerializer):
                 raise ValidationError('Can only use available lecture.')
             attrs['lecture'] = lecture.first()
         return attrs
+
+
+class ReadyHomeworkSerializer(serializers.ModelSerializer):
+    homework = HomeworkSerializer(read_only=True)
+
+    class Meta:
+        model = ReadyHomework
+        fields = ['pk', 'homework', 'student', 'text', 'mark', 'comment']

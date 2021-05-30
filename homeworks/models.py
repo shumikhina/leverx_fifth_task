@@ -15,5 +15,5 @@ class ReadyHomework(models.Model):
     homework = models.ForeignKey(Homework, on_delete=models.CASCADE)
     student = models.ForeignKey(User, on_delete=models.CASCADE)
     text = models.TextField()
-    mark = models.IntegerField()
-    comment = models.CharField(max_length=512)
+    mark = models.IntegerField(null=True)
+    comment = models.CharField(max_length=512, null=True)
