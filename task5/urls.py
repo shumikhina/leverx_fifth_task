@@ -19,4 +19,5 @@ urlpatterns = [
     path('auth/', include(('authapp.urls', 'authapp'), namespace='authapp')),
     path('courses/', include(('courses.urls', 'courses'), namespace='courses')),
     path('lections/', include(('lections.urls', 'lections'), namespace='lections')),
+    path('homeworks/', include(('homeworks.urls', 'homeworks'), namespace='homeworks')),
 ]
