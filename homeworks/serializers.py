@@ -37,3 +37,12 @@ class ReadyHomeworkSerializer(serializers.ModelSerializer):
     class Meta:
         model = ReadyHomework
         fields = ['pk', 'homework', 'student', 'text', 'mark', 'comment']
+
+
+class ReadyHomeworkProfessorUpdateSerializer(serializers.ModelSerializer):
+    homework = HomeworkSerializer(read_only=True)
+
+    class Meta:
+        model = ReadyHomework
+        fields = ['pk', 'homework', 'student', 'text', 'mark', 'comment']
+        read_only_fields = ['pk', 'homework', 'student', 'text']
